@@ -3,7 +3,7 @@
     :active-text-color="cssVars.$menuActiveText"
     :background-color="cssVars.$menuBg"
     class="el-menu-vertical-demo"
-    :default-active="`/${recentPath}`"
+    :default-active="recentPath"
     text-color="#fff"
     router
     unique-opened
@@ -36,10 +36,10 @@ const initMenuList = async () => {
 initMenuList()
 
 //点击menu item时调用savePath保存刚才访问的path
-const recentPath = ref(sessionStorage.getItem('recent-path') || '/users')
+const recentPath = ref(sessionStorage.getItem('recent-path') || 'users')
 console.log(recentPath.value)
 const savePath = (path) => {
-  sessionStorage.setItem('recent-path', '/' + path)
+  sessionStorage.setItem('recent-path', path)
 }
 
 const cssVars = {

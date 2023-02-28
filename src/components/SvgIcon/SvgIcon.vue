@@ -11,8 +11,8 @@ import { defineProps, computed } from 'vue'
 const props = defineProps({
   name: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const symbolID = computed(() => {

@@ -11,7 +11,7 @@
       </el-form-item>
       <el-form-item prop="password">
         <SvgIcon name="password" class="svg-container"></SvgIcon>
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password" type="password" show-password />
       </el-form-item>
       <el-button type="primary" class="login-button" @click="handleLogin"
         >登录</el-button
@@ -23,15 +23,15 @@
 <script setup>
 import { ref } from 'vue'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
-import { login } from '../../api/login';
+import { login } from '../../api/login'
 const form = ref({
   username: '',
-  password: '',
+  password: ''
 })
 
 const rules = ref({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
 const formRef = ref(null)
@@ -78,11 +78,12 @@ $cursor: #fff;
     ::v-deep .el-input {
       display: inline-block;
       height: 47px;
-      width: 85%;
+      width: 93%;
 
       .el-input__wrapper {
         background-color: transparent;
         box-shadow: none;
+        width: 100%;
         input {
           background: transparent;
           border: 0px;

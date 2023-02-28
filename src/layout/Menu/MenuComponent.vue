@@ -3,9 +3,10 @@
     :active-text-color="cssVars.$menuActiveText"
     :background-color="cssVars.$menuBg"
     class="el-menu-vertical-demo"
-    default-active="2"
+    :default-active="`/${recentPath}`"
     text-color="#fff"
     router
+    unique-opened
   >
     <!-- 此处index期望一个String -->
     <el-sub-menu :index="`${item.id}`" v-for="item in menuList" :key="item.id">
@@ -14,9 +15,10 @@
         <span>{{ item.authName }}</span>
       </template>
       <el-menu-item
-        :index="`/${it.path}`"
+        :index="it.path"
         v-for="it in item.children"
         :key="it.id"
+        @click="savePath(it.path)"
         >{{ it.authName }}</el-menu-item
       >
     </el-sub-menu>
@@ -26,6 +28,19 @@
 <script setup>
 import { getMenuList } from '@/api/menu'
 import { ref } from 'vue'
+
+const menuList = ref([])
+const initMenuList = async () => {
+  menuList.value = await getMenuList()
+}
+initMenuList()
+
+//点击menu item时调用savePath保存刚才访问的path
+const recentPath = ref(sessionStorage.getItem('recent-path') || '/users')
+console.log(recentPath.value)
+const savePath = (path) => {
+  sessionStorage.setItem('recent-path', '/' + path)
+}
 
 const cssVars = {
   $menuText: '#bfcbd9',
@@ -42,13 +57,6 @@ const cssVars = {
   $hideSideBarWidth: '67px',
   $sideBarDuration: '0.28s'
 }
-
-const menuList = ref([])
-const initMenuList = async () => {
-  menuList.value = await getMenuList()
-}
-
-initMenuList()
 </script>
 
 <style lang="scss" scoped></style>

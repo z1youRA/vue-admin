@@ -5,7 +5,6 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import path from 'path'
-import process from 'process'
 import eslintPlugin from 'vite-plugin-eslint'
 
 export default defineConfig({
@@ -46,7 +45,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "@/styles/variables..scss";
+          @import "@/styles/variables.scss";
           @import "@/styles/mixin.scss";
         `
       }

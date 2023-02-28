@@ -4,7 +4,7 @@
       <el-aside width="200px" class="sidebar-container">
         <Menu />
       </el-aside>
-      <el-container>
+      <el-container class="container">
         <el-header>Header</el-header>
         <el-main><router-view /></el-main>
       </el-container>

@@ -44,8 +44,8 @@ const savePath = (path) => {
 
 const cssVars = {
   $menuText: '#bfcbd9',
-  $menuActiveText: '#ffffff',
-  $subMenuActiveText: '#f4f4f5',
+  $menuActiveText: '#ffd04b',
+  $subMenuActiveText: '#ffd04b',
 
   $menuBg: '#304156',
   $menuHover: '#263445',

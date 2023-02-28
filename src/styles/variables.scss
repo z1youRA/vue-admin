@@ -1,7 +1,7 @@
 // sidebar
 $menuText: #bfcbd9;
-$menuActiveText: #ffffff;
-$subMenuActiveText: #f4f4f5;
+$menuActiveText: #ffd04b;
+$subMenuActiveText: #ffd04b;
 
 $menuBg: #304156;
 $menuHover: #263445;
@@ -12,7 +12,6 @@ $subMenuHover: #001528;
 $sideBarWidth: 210px;
 $hideSideBarWidth: 67px;
 $sideBarDuration: 0.28s;
-
 
 :export {
   menuText: $menuText;

@@ -40,5 +40,16 @@ export default defineConfig({
       symbolId: 'icon-[name]'
     })
   ],
-  resolve: { alias: { '@': path.resolve(process.cwd(), 'src') } }
+  resolve: { alias: { '@': path.resolve(process.cwd(), 'src') } },
+  //全局引入样式
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "@/styles/variables..scss";
+          @import "@/styles/mixin.scss";
+        `
+      }
+    }
+  }
 })

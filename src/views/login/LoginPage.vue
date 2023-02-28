@@ -23,23 +23,24 @@
 <script setup>
 import { ref } from 'vue'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
-import { login } from '../../api/login'
+import { useStore } from 'vuex'
+
 const form = ref({
   username: '',
   password: ''
 })
-
+const formRef = ref(null)
 const rules = ref({
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
 })
 
-const formRef = ref(null)
+const store = useStore()
+
 const handleLogin = () => {
   formRef.value.validate((valid) => {
     if (valid) {
-      // alert('submit!')
-      login(form.value)
+      store.dispatch('app/login', form.value)
     } else {
       console.log('error submit!!')
       return false

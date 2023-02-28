@@ -9,9 +9,15 @@
     unique-opened
   >
     <!-- 此处index期望一个String -->
-    <el-sub-menu :index="`${item.id}`" v-for="item in menuList" :key="item.id">
+    <el-sub-menu
+      :index="`${item.id}`"
+      v-for="(item, index) in menuList"
+      :key="item.id"
+    >
       <template #title>
-        <!-- <el-icon><location /></el-icon> -->
+        <el-icon>
+          <component :is="iconList[index]"></component>
+        </el-icon>
         <span>{{ item.authName }}</span>
       </template>
       <el-menu-item
@@ -19,7 +25,11 @@
         v-for="it in item.children"
         :key="it.id"
         @click="savePath(it.path)"
-        >{{ it.authName }}</el-menu-item
+      >
+        <el-icon>
+          <component :is="iconSub"></component>
+        </el-icon>
+        <span>{{ it.authName }}</span></el-menu-item
       >
     </el-sub-menu>
   </el-menu>
@@ -35,12 +45,15 @@ const initMenuList = async () => {
 }
 initMenuList()
 
-//点击menu item时调用savePath保存刚才访问的path
+//点击menu item时调用savePath保存刚才访问的path; 需要保存不含/的路径
 const recentPath = ref(sessionStorage.getItem('recent-path') || 'users')
 console.log(recentPath.value)
 const savePath = (path) => {
   sessionStorage.setItem('recent-path', path)
 }
+
+const iconList = ref(['user', 'setting', 'shop', 'tickets', 'pie-chart'])
+const iconSub = ref('menu')
 
 const cssVars = {
   $menuText: '#bfcbd9',

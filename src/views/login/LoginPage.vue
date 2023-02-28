@@ -4,13 +4,14 @@
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
+      <!-- prop绑定校验规则rules -->
       <el-form-item prop="username">
         <SvgIcon name="user" class="svg-container"></SvgIcon>
-        <el-input v-model="form.name" />
+        <el-input v-model="form.username" />
       </el-form-item>
       <el-form-item prop="password">
         <SvgIcon name="password" class="svg-container"></SvgIcon>
-        <el-input v-model="form.pwd" />
+        <el-input v-model="form.password" />
       </el-form-item>
       <el-button type="primary" class="login-button" @click="handleLogin"
         >登录</el-button
@@ -22,22 +23,23 @@
 <script setup>
 import { ref } from 'vue'
 import SvgIcon from '@/components/SvgIcon/SvgIcon.vue'
+import { login } from '../../api/login';
 const form = ref({
   username: '',
   password: '',
 })
 
 const rules = ref({
-  username: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
 })
 
 const formRef = ref(null)
 const handleLogin = () => {
-  console.log(formRef)
   formRef.value.validate((valid) => {
     if (valid) {
-      alert('submit!')
+      // alert('submit!')
+      login(form.value)
     } else {
       console.log('error submit!!')
       return false

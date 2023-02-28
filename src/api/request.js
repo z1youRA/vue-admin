@@ -6,6 +6,16 @@ const service = axios.create({
   timeout: 5000
 })
 
+//在request中插入token信息
+service.interceptors.request.use(
+  (config) => {
+    config.headers.Authorization = localStorage.getItem('token')
+    return config
+  },
+  (error) => {
+    return Promise.reject(new Error(error))
+  }
+)
 service.interceptors.response.use(
   (response) => {
     const { meta, data } = response.data

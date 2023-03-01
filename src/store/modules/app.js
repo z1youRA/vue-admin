@@ -1,5 +1,6 @@
 import { login as loginApi } from '@/api/login'
 import router from '@/router'
+import { setTimeToken } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -19,7 +20,8 @@ export default {
         //调用api将userInfo打包为POST报文发送给后端
         loginApi(userInfo)
           .then((res) => {
-            commit('setToken', res.token)
+            if (res.token) commit('setToken', res.token)
+            setTimeToken()
             //实现登录成功后跳转到主页
             router.replace('/')
             resolve()
@@ -28,6 +30,11 @@ export default {
             reject(err)
           })
       })
+    },
+    logout({ commit }) {
+      commit('setToken', '')
+      localStorage.clear()
+      router.replace('/login')
     }
   }
 }

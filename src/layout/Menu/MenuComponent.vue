@@ -47,7 +47,7 @@ initMenuList()
 
 //点击menu item时调用savePath保存刚才访问的path; 需要保存不含/的路径
 const recentPath = ref(sessionStorage.getItem('recent-path') || 'users')
-console.log(recentPath.value)
+// console.log(recentPath.value)
 const savePath = (path) => {
   sessionStorage.setItem('recent-path', path)
 }

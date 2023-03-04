@@ -7,6 +7,7 @@
     text-color="#fff"
     router
     unique-opened
+    :collapse="!$store.getters.getSidebarStatus"
   >
     <!-- 此处index期望一个String -->
     <el-sub-menu

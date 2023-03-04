@@ -5,12 +5,16 @@ import { setTimeToken } from '@/utils/auth'
 export default {
   namespaced: true,
   state: () => ({
-    token: localStorage.getItem('token') || ''
+    token: localStorage.getItem('token') || '',
+    sidebarStatus: true
   }),
   mutations: {
     setToken(state, token) {
       state.token = token
       localStorage.setItem('token', token)
+    },
+    toggleSidebarStatus(state) {
+      state.sidebarStatus = !state.sidebarStatus
     }
   },
   actions: {

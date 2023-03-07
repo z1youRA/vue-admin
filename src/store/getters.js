@@ -5,5 +5,8 @@ export default {
   },
   getSidebarStatus: (state) => {
     return state.app.sidebarStatus
+  },
+  lang: (state) => {
+    return state.app.lang
   }
 }

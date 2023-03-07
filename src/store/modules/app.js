@@ -6,7 +6,8 @@ export default {
   namespaced: true,
   state: () => ({
     token: localStorage.getItem('token') || '',
-    sidebarStatus: true
+    sidebarStatus: true,
+    lang: localStorage.getItem('lang') || 'zh'
   }),
   mutations: {
     setToken(state, token) {
@@ -15,6 +16,9 @@ export default {
     },
     toggleSidebarStatus(state) {
       state.sidebarStatus = !state.sidebarStatus
+    },
+    changeLang(state, lang) {
+      state.lang = lang
     }
   },
   actions: {

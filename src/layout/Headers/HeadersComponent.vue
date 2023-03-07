@@ -2,7 +2,10 @@
   <div class="navbar">
     <Hamburger />
     <Breadcrumb />
-    <div class="navbar-right"><Avatar /></div>
+    <div class="navbar-right">
+      <LangSel class="navbar-item" />
+      <Avatar class="navbar-item" />
+    </div>
   </div>
 </template>
 
@@ -10,6 +13,7 @@
 import Hamburger from './components/HamburgerButton.vue'
 import Breadcrumb from './components/BreadcrumbComponent.vue'
 import Avatar from './components/AvatarComponent.vue'
+import LangSel from './components/LangSelector.vue'
 </script>
 
 <style lang="scss" scoped>

@@ -30,7 +30,7 @@
         <el-icon>
           <component :is="iconSub"></component>
         </el-icon>
-        <span>{{ it.authName }}</span></el-menu-item
+        <span>{{ $t(`menus.${it.path}`) }}</span></el-menu-item
       >
     </el-sub-menu>
   </el-menu>
@@ -47,6 +47,7 @@ const initMenuList = async () => {
 initMenuList()
 
 //点击menu item时调用savePath保存刚才访问的path; 需要保存不含/的路径
+//实现刷新后default active不变
 const recentPath = ref(sessionStorage.getItem('recent-path') || 'users')
 // console.log(recentPath.value)
 const savePath = (path) => {

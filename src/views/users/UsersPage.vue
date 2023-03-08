@@ -9,7 +9,7 @@
         >
         </el-input>
       </el-col>
-      <el-button type="primary" :icon="Search">{{
+      <el-button type="primary" :icon="Search" @click="initGetUserList">{{
         $t('table.search')
       }}</el-button>
       <el-button type="primary">{{ $t('table.adduser') }}</el-button>
@@ -25,6 +25,9 @@
       >
         <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
           <el-switch v-model="row.mg_state" />
+        </template>
+        <template v-slot="{ row }" v-else-if="item.prop === 'create_time'">
+          {{ $filters.filterDate(row.create_time) }}
         </template>
         <template v-if="item.prop === 'action'">
           <el-button type="primary" size="small" :icon="Edit"></el-button>
@@ -45,7 +48,7 @@ import { options } from './options.js'
 const queryForm = ref({
   query: '',
   pagenum: 1,
-  pagesize: 2
+  pagesize: 10
 })
 
 const tableData = ref([])

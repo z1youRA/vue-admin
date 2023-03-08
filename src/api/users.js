@@ -7,3 +7,10 @@ export const getUser = (params) => {
   })
   return res
 }
+
+export const changeUserState = (uid, type) => {
+  return request({
+    url: `users/${uid}/state/${type}`,
+    method: 'put'
+  })
+}

@@ -24,7 +24,7 @@
         :width="item.width"
       >
         <template v-slot="{ row }" v-if="item.prop === 'mg_state'">
-          <el-switch v-model="row.mg_state" />
+          <el-switch v-model="row.mg_state" @change="toggleMgState(row)" />
         </template>
         <template v-slot="{ row }" v-else-if="item.prop === 'create_time'">
           {{ $filters.filterDate(row.create_time) }}
@@ -36,14 +36,27 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      v-model:current-page="queryForm.pagenum"
+      v-model:page-size="queryForm.pagesize"
+      :page-sizes="[2, 5, 10, 15]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+    />
   </el-card>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue'
-import { getUser } from '@/api/users.js'
+import { getUser, changeUserState } from '@/api/users.js'
 import { options } from './options.js'
+import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+
+const i18n = useI18n()
 
 const queryForm = ref({
   query: '',
@@ -51,14 +64,35 @@ const queryForm = ref({
   pagesize: 10
 })
 
+const total = ref(0)
 const tableData = ref([])
 
 const initGetUserList = async () => {
   const res = await getUser(queryForm.value)
   tableData.value = res.users
+  total.value = res.total
 }
 
 initGetUserList()
+
+const handleSizeChange = (pageSize) => {
+  queryForm.value.pagesize = pageSize
+  queryForm.value.pagenum = 1
+  initGetUserList()
+}
+
+const handleCurrentChange = (pageNum) => {
+  queryForm.value.pagenum = pageNum
+  initGetUserList()
+}
+
+const toggleMgState = (user) => {
+  changeUserState(user.id, user.mg_state)
+  ElMessage({
+    message: i18n.t('message.updateSuccess'),
+    type: 'success'
+  })
+}
 </script>
 
 <style lang="scss" scoped>

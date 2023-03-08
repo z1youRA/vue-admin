@@ -22,3 +22,11 @@ export const addUser = (data) => {
     data
   })
 }
+
+export const editUser = (data) => {
+  return request({
+    url: `users/${data.id}`,
+    method: 'put',
+    data
+  })
+}

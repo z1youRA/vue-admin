@@ -14,3 +14,11 @@ export const changeUserState = (uid, type) => {
     method: 'put'
   })
 }
+
+export const addUser = (data) => {
+  return request({
+    url: 'users',
+    method: 'post',
+    data
+  })
+}

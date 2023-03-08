@@ -12,7 +12,9 @@
       <el-button type="primary" :icon="Search" @click="initGetUserList">{{
         $t('table.search')
       }}</el-button>
-      <el-button type="primary">{{ $t('table.adduser') }}</el-button>
+      <el-button type="primary" @click="handleDialogValue">{{
+        $t('table.adduser')
+      }}</el-button>
     </el-row>
 
     <el-table :data="tableData" stripe style="width: 100%">
@@ -46,6 +48,11 @@
       @current-change="handleCurrentChange"
     />
   </el-card>
+  <Dialog
+    v-model="dialogVisible"
+    :dialogTitle="dialogTitle"
+    v-if="dialogVisible"
+  />
 </template>
 
 <script setup>
@@ -55,6 +62,7 @@ import { getUser, changeUserState } from '@/api/users.js'
 import { options } from './options.js'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import Dialog from './components/DialogComponent.vue'
 
 const i18n = useI18n()
 
@@ -66,6 +74,8 @@ const queryForm = ref({
 
 const total = ref(0)
 const tableData = ref([])
+const dialogVisible = ref(false)
+const dialogTitle = ref('')
 
 const initGetUserList = async () => {
   const res = await getUser(queryForm.value)
@@ -92,6 +102,11 @@ const toggleMgState = (user) => {
     message: i18n.t('message.updateSuccess'),
     type: 'success'
   })
+}
+
+const handleDialogValue = () => {
+  dialogTitle.value = '添加用户'
+  dialogVisible.value = true
 }
 </script>
 

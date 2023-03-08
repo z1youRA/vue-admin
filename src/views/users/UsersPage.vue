@@ -27,9 +27,9 @@
           <el-switch v-model="row.mg_state" />
         </template>
         <template v-if="item.prop === 'action'">
-          <el-button type="primary" size="small">Primary</el-button>
-          <el-button type="warning" size="small">Warning</el-button>
-          <el-button type="danger" size="small">Danger</el-button>
+          <el-button type="primary" size="small" :icon="Edit"></el-button>
+          <el-button type="warning" size="small" :icon="Setting"></el-button>
+          <el-button type="danger" size="small" :icon="Delete"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -38,7 +38,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Search } from '@element-plus/icons-vue'
+import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue'
 import { getUser } from '@/api/users.js'
 import { options } from './options.js'
 

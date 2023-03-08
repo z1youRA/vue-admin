@@ -46,7 +46,7 @@ defineProps({
     required: true
   }
 })
-const emits = defineEmits(['update:modelValue'])
+const emits = defineEmits(['update:modelValue', 'initUserList'])
 
 //v-model实现父子组件通信
 const handleClose = () => {
@@ -54,11 +54,19 @@ const handleClose = () => {
 }
 
 const handleConfirm = async () => {
-  await addUser(form.value)
-  handleClose()
-  ElMessage({
-    message: i18n.global.t('message.updateSuccess'),
-    type: 'success'
+  formRef.value.validate(async (valid) => {
+    if (valid) {
+      await addUser(form.value)
+      handleClose()
+      ElMessage({
+        message: i18n.global.t('message.updateSuccess'),
+        type: 'success'
+      })
+      emits('initUserList')
+    } else {
+      console.log('error submit')
+      return false
+    }
   })
 }
 

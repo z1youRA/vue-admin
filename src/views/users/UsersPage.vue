@@ -39,7 +39,12 @@
             @click="handleDialogValue(row)"
           ></el-button>
           <el-button type="warning" size="small" :icon="Setting"></el-button>
-          <el-button type="danger" size="small" :icon="Delete"></el-button>
+          <el-button
+            type="danger"
+            size="small"
+            :icon="Delete"
+            @click="deleteUser(row)"
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -65,9 +70,9 @@
 <script setup>
 import { ref } from 'vue'
 import { Search, Edit, Setting, Delete } from '@element-plus/icons-vue'
-import { getUser, changeUserState } from '@/api/users.js'
+import { getUser, changeUserState, delUser } from '@/api/users.js'
 import { options } from './options.js'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import Dialog from './components/DialogComponent.vue'
 import { isNull } from '@/utils/filters'
@@ -122,11 +127,38 @@ const handleDialogValue = (row) => {
   }
   dialogVisible.value = true
 }
+
+const deleteUser = (row) => {
+  ElMessageBox.confirm(i18n.t('dialog.deleteTitle'), 'Warning', {
+    confirmButtonText: 'OK',
+    cancelButtonText: 'Cancel',
+    type: 'warning'
+  })
+    .then(() => {
+      delUser(row.id)
+      ElMessage({
+        type: 'success',
+        message: 'Delete completed'
+      })
+      initGetUserList()
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Delete canceled'
+      })
+    })
+}
 </script>
 
 <style lang="scss" scoped>
 .header {
   padding-bottom: 16px;
+  box-sizing: border-box;
+}
+
+:deep(.el-pagination) {
+  padding-top: 16px;
   box-sizing: border-box;
 }
 </style>

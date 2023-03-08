@@ -30,3 +30,10 @@ export const editUser = (data) => {
     data
   })
 }
+
+export const delUser = (id) => {
+  return request({
+    url: `users/${id}`,
+    method: 'delete'
+  })
+}

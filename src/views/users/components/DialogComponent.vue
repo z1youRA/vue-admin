@@ -118,7 +118,6 @@ const rules = ref({
 watch(
   () => props.dialogTableValue,
   () => {
-    console.log(props.dialogTableValue)
     form.value = props.dialogTableValue
   },
   { deep: true, immediate: true }
